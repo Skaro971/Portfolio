@@ -1,0 +1,75 @@
+---
+---
+
+<header>
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="/Portfolio/" class="logo">Willem GIRON</a>
+        <ul class="nav-menu">
+          <li><a href="/Portfolio/">Accueil</a></li>
+          <li><a href="#projects">Projets</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<style>
+  header {
+    background-color: var(--primary);
+    border-bottom: 2px solid var(--accent);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .navbar {
+    padding: 1rem 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent);
+  }
+
+  .logo:hover {
+    color: #00b4d4;
+  }
+
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+
+  .nav-menu a {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .nav-menu a:hover {
+    color: var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    .nav-menu {
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>

@@ -1,17 +1,163 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Footer from '../components/Footer.astro';
 
+const projects = [
+  {
+    title: "Site E-commerce",
+    description: "Un site e-commerce moderne construite avec Astro et Tailwind CSS. Avec panier, paiement et gestion des produits.",
+    tags: ["Astro", "Tailwind", "JavaScript"],
+    link: "#",
+    image: "https://via.placeholder.com/400x200?text=E-commerce"
+  },
+  {
+    title: "Application Todo",
+    description: "Application de gestion des tâches avec React. Permet d'ajouter, modifier et supprimer des tâches avec persistance locale.",
+    tags: ["React", "JavaScript", "CSS"],
+    link: "#",
+    image: "https://via.placeholder.com/400x200?text=Todo+App"
+  },
+  {
+    title: "Blog Personnel",
+    description: "Blog construit avec Astro et Markdown. Avec système de tags, recherche et optimisé pour les moteurs de recherche.",
+    tags: ["Astro", "Markdown", "SEO"],
+    link: "#",
+    image: "https://via.placeholder.com/400x200?text=Blog"
+  },
+  {
+    title: "Dashboard Analytics",
+    description: "Tableau de bord pour visualiser des données. Avec graphiques interactifs et filtres personnalisés.",
+    tags: ["Vue.js", "Chart.js", "Node.js"],
+    link: "#",
+    image: "https://via.placeholder.com/400x200?text=Dashboard"
+  }
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Skaro971">
+  <Header />
+  <main>
+    <HeroSection />
+    
+    <!-- Section Projets -->
+    <section id="projects" class="projects-section">
+      <div class="container">
+        <h2>Mes Projets</h2>
+        <p class="section-subtitle">Voici quelques projets sur lesquels j'ai travaillé</p>
+        
+        <div class="projects-grid">
+          {projects.map((project) => (
+            <ProjectCard 
+              title={project.title}
+              description={project.description}
+              tags={project.tags}
+              link={project.link}
+              image={project.image}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <h2>Me Contacter</h2>
+        <p class="section-subtitle">N'hésitez pas à me contacter pour discuter de vos projets</p>
+        
+        <div class="contact-content">
+          <a href="mailto:willemgironsdp@gmail.com" class="contact-btn">Envoyer un email</a>
+          <a href="https://github.com/Skaro971" target="_blank" class="contact-btn">Voir GitHub</a>
+          <a href="https://www.linkedin.com/in/willem-giron-69075829a/" target="_blank" class="contact-btn">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Section Projets */
+  .projects-section {
+    padding: 4rem 2rem;
+    background-color: var(--secondary);
+  }
+
+  .projects-section h2 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  /* Section Contact */
+  .contact-section {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    text-align: center;
+  }
+
+  .contact-content {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .contact-btn {
+    padding: 0.8rem 1.5rem;
+    background-color: var(--accent);
+    color: var(--primary);
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .contact-btn:hover {
+    background-color: #00b4d4;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    .projects-section,
+    .contact-section {
+      padding: 2rem 1rem;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-content {
+      flex-direction: column;
+    }
+
+    .contact-btn {
+      width: 100%;
+    }
+  }
+</style>
