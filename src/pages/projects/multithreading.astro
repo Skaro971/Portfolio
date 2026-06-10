@@ -1,0 +1,205 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+---
+
+<ProjectLayout
+  title="Multithreading Battle Royale"
+  tags={["C++", "Multithreading", "Windows API", "SFML", "CMake", "Temps réel"]}
+  github="https://github.com/Skaro971/GC_T3_P5_Multithreading"
+  collab="Projet collectif — Killian, Willem, Tiago"
+>
+
+  <div class="sections">
+
+    <div class="section">
+      <h2>Présentation</h2>
+      <p>
+        Simulateur d'entités mobiles multithreadé avec système de collision et rendu temps réel.
+        17 000 balles s'affrontent dans une arène divisée en zones — chaque zone gérée par un
+        thread dédié. La dernière survivante gagne.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Architecture</h2>
+      <p>
+        Le terrain est partitionné en cellules selon le nombre de threads disponibles,
+        détecté automatiquement via <code>std::thread::hardware_concurrency()</code>.
+        Quand une entité traverse une frontière de zone, elle est transférée au thread
+        voisin via message asynchrone — aucun verrou global sur les données de jeu.
+      </p>
+      <ul>
+        <li><strong>GameManager</strong> — boucle principale, init et shutdown</li>
+        <li><strong>ThreadManager</strong> — gestion des workers, signaux start/end par frame</li>
+        <li><strong>WorkerThread</strong> — update, collisions, transitions inter-zones</li>
+        <li><strong>Grid</strong> — partitionnement spatial, calcul des zones</li>
+        <li><strong>SafeQueue&lt;T&gt;</strong> — file thread-safe générique pour la messagerie</li>
+        <li><strong>Renderer</strong> — rendu SFML avec batching de vertices</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Synchronisation</h2>
+      <ul>
+        <li><strong>CreateThread / Windows API</strong> — threading natif sans abstraction</li>
+        <li><strong>SetEvent / WaitForSingleObject</strong> — signaux start/end par frame</li>
+        <li><strong>WaitForMultipleObjects</strong> — attente de tous les workers avant rendu</li>
+        <li><strong>SRWLOCK</strong> — protection lecture/écriture des entités partagées</li>
+        <li><strong>SafeQueue&lt;T&gt;</strong> — messages inter-threads sans deadlock</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Détection de collisions</h2>
+      <p>
+        Détection en deux phases : collisions locales entre entités du même thread en O(n²)
+        local, puis collisions cross-thread pour les entités proches des bordures.
+        Le thread au plus petit ID gère la résolution — l'autre reçoit un <code>CollisionMessage</code>.
+      </p>
+    </div>
+
+    <div class="section section--highlight">
+      <h2>Performances</h2>
+      <div class="perf-grid">
+        <div class="perf-stat">
+          <span class="perf-value">17 000</span>
+          <span class="perf-label">entités simultanées</span>
+        </div>
+        <div class="perf-stat">
+          <span class="perf-value">auto</span>
+          <span class="perf-label">détection des cœurs</span>
+        </div>
+        <div class="perf-stat">
+          <span class="perf-value">4x</span>
+          <span class="perf-label">métriques par frame</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</ProjectLayout>
+
+<style>
+  .sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .section {
+    padding: 1.8rem;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--cyan), var(--violet));
+    border-radius: 3px 0 0 3px;
+  }
+
+  .section--highlight::before {
+    background: linear-gradient(180deg, var(--violet), var(--red));
+  }
+
+  .section h2 {
+    font-size: 1rem;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .section p {
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 0.93rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .section p:last-child { margin-bottom: 0; }
+
+  .section ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .section ul li {
+    color: var(--text);
+    font-size: 0.93rem;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .section ul li::before {
+    content: '▹';
+    color: var(--violet);
+    position: absolute;
+    left: 0;
+    font-size: 0.8rem;
+    top: 0.05em;
+  }
+
+  .section strong {
+    color: var(--text-bright);
+    font-weight: 500;
+  }
+
+  code {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85em;
+    color: var(--cyan);
+    background: rgba(0, 229, 255, 0.06);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+  }
+
+  .perf-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .perf-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 1rem;
+    background: rgba(184, 0, 255, 0.05);
+    border: 1px solid rgba(184, 0, 255, 0.15);
+    border-radius: 2px;
+  }
+
+  .perf-value {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.4rem;
+    color: var(--violet);
+    letter-spacing: 0.05em;
+  }
+
+  .perf-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-align: center;
+    letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 600px) {
+    .perf-grid { grid-template-columns: 1fr; }
+  }
+</style>

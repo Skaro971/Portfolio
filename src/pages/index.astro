@@ -7,31 +7,24 @@ import Footer from '../components/Footer.astro';
 
 const projects = [
   {
-    title: "TODO",
-    description: "TODO",
-    tags: ["TODO"],
-    link: "#",
+    title: "Asset Engine",
+    description: "Système d'archivage binaire avec gestion CRUD, vérification d'intégrité et chiffrement.",
+    tags: ["C++17", "STL", "Binaire", "CLI", "CRC32", "Chiffrement"],
+    link: "/Portfolio/projects/asset-engine",
     image: ""
   },
   {
-    title: "TODO",
-    description: "TODO",
-    tags: ["TODO"],
-    link: "#",
+    title: "Multithreading Battle Royale",
+    description: "Simulation haute performance de 17 000 entités en temps réel avec traitement parallèle.",
+    tags: ["C++", "Multithreading", "Windows API", "SFML", "CMake", "Temps réel"],
+    link: "/Portfolio/projects/multithreading",
     image: ""
   },
   {
-    title: "TODO",
-    description: "TODO",
-    tags: ["TODO"],
-    link: "#",
-    image: ""
-  },
-  {
-    title: "TODO",
-    description: "TODO",
-    tags: ["TODO"],
-    link: "#",
+    title: "Audio Editor",
+    description: "Éditeur audio avec parsing binaire natif, traitement de signal et visualisation de données.",
+    tags: ["C++", "Audio", "WAV", "Waveform", "CMake", "Sérialisation"],
+    link: "/Portfolio/projects/audio-editor",
     image: ""
   }
 ];
@@ -41,16 +34,14 @@ const projects = [
   <Header />
   <main>
     <HeroSection />
-    
-    <!-- Section Projets -->
+
     <section id="projects" class="projects-section">
       <div class="container">
-        <h2>Mes Projets</h2>
+        <h2 class="section-title">Mes Projets</h2>
         <p class="section-subtitle">Voici quelques projets sur lesquels j'ai travaillé</p>
-        
         <div class="projects-grid">
           {projects.map((project) => (
-            <ProjectCard 
+            <ProjectCard
               title={project.title}
               description={project.description}
               tags={project.tags}
@@ -62,22 +53,17 @@ const projects = [
       </div>
     </section>
 
-    <!-- Section Contact -->
     <section id="contact" class="contact-section">
       <div class="container">
-        <h2>Me Contacter</h2>
-        <!-- <p class="section-subtitle"></p> -->
-        
+        <h2 class="section-title">Me Contacter</h2>
         <div class="contact-content">
-          <a href="mailto:willemgironsdp@gmail.com" class="contact-btn">Envoyer un email</a>
-          <a href="https://github.com/Skaro971" target="_blank" class="contact-btn">Voir GitHub</a>
-          <a href="https://www.linkedin.com/in/willem-giron-69075829a/" target="_blank" class="contact-btn">LinkedIn</a>
-          <!-- TODO : Add CV.pdf to download -->
+          <a href="mailto:willemgironsdp@gmail.com" class="contact-btn contact-btn--cyan">Envoyer un email</a>
+          <a href="https://github.com/Skaro971" target="_blank" class="contact-btn contact-btn--violet">Voir GitHub</a>
+          <a href="https://www.linkedin.com/in/willem-giron-69075829a/" target="_blank" class="contact-btn contact-btn--red">LinkedIn</a>
         </div>
       </div>
     </section>
   </main>
-  
   <Footer />
 </Layout>
 
@@ -88,35 +74,68 @@ const projects = [
     padding: 0 2rem;
   }
 
-  /* Section Projets */
-  .projects-section {
-    padding: 4rem 2rem;
-    background-color: var(--secondary);
+  .section-title {
+    text-align: center;
+    font-size: 1.6rem;
+    color: var(--text-bright);
+    margin-bottom: 0.5rem;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
-  .projects-section h2 {
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--cyan), var(--violet));
+  }
+
+  /* Projets */
+  .projects-section {
+    padding: 5rem 2rem;
+    background-color: var(--bg);
     text-align: center;
-    margin-bottom: 0.5rem;
   }
 
   .section-subtitle {
-    text-align: center;
     color: var(--text-muted);
+    font-size: 0.9rem;
     margin-bottom: 3rem;
-    font-size: 1.1rem;
+    margin-top: 1rem;
+    letter-spacing: 0.04em;
   }
 
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
+    text-align: left;
   }
 
-  /* Section Contact */
+  /* Contact */
   .contact-section {
-    padding: 4rem 2rem;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    padding: 5rem 2rem;
+    background-color: var(--surface);
     text-align: center;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--violet), var(--cyan), var(--red), transparent);
+    opacity: 0.4;
   }
 
   .contact-content {
@@ -128,37 +147,57 @@ const projects = [
   }
 
   .contact-btn {
-    padding: 0.8rem 1.5rem;
-    background-color: var(--accent);
-    color: var(--primary);
-    border-radius: 5px;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.8rem;
+    border-radius: 2px;
+    transition: all 0.2s ease;
     display: inline-block;
   }
 
-  .contact-btn:hover {
-    background-color: #00b4d4;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+  .contact-btn--cyan {
+    background: var(--cyan-dim);
+    color: var(--cyan);
+    border: 1px solid rgba(0, 229, 255, 0.35);
+  }
+
+  .contact-btn--cyan:hover {
+    background: var(--cyan);
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+  }
+
+  .contact-btn--violet {
+    background: var(--violet-dim);
+    color: var(--violet);
+    border: 1px solid rgba(184, 0, 255, 0.35);
+  }
+
+  .contact-btn--violet:hover {
+    background: var(--violet);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(184, 0, 255, 0.4);
+  }
+
+  .contact-btn--red {
+    background: var(--red-dim);
+    color: var(--red);
+    border: 1px solid rgba(255, 42, 74, 0.35);
+  }
+
+  .contact-btn--red:hover {
+    background: var(--red);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 42, 74, 0.4);
   }
 
   @media (max-width: 768px) {
     .projects-section,
-    .contact-section {
-      padding: 2rem 1rem;
-    }
-
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .contact-content {
-      flex-direction: column;
-    }
-
-    .contact-btn {
-      width: 100%;
-    }
+    .contact-section { padding: 3rem 1rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .contact-content { flex-direction: column; }
+    .contact-btn { width: 100%; text-align: center; }
   }
 </style>

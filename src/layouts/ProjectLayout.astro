@@ -1,0 +1,136 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  tags: string[];
+  github: string;
+  collab?: string;
+}
+
+const { title, tags, github, collab } = Astro.props;
+---
+
+<Layout title={title}>
+  <Header />
+  <main>
+    <div class="container">
+
+      <div class="back-link">
+        <a href="/Portfolio/">← Retour</a>
+      </div>
+
+      <div class="project-header">
+        <h1>{title}</h1>
+        {collab && <p class="collab">{collab}</p>}
+        <div class="tags">
+          {tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+        <a href={github} target="_blank" class="github-btn">Voir sur GitHub →</a>
+      </div>
+
+      <slot />
+
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    padding: 3rem 0 5rem;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+  }
+
+  .back-link {
+    margin-bottom: 2.5rem;
+  }
+
+  .back-link a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+
+  .back-link a:hover { color: var(--cyan); }
+
+  .project-header {
+    margin-bottom: 3.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .project-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--cyan), var(--violet));
+  }
+
+  .project-header h1 {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    color: var(--text-bright);
+    margin-bottom: 0.6rem;
+    text-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+  }
+
+  .collab {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--cyan);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    background: rgba(0, 229, 255, 0.05);
+    padding: 0.22rem 0.6rem;
+    border-radius: 1px;
+    letter-spacing: 0.05em;
+  }
+
+  .github-btn {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.7rem 1.6rem;
+    border-radius: 2px;
+    display: inline-block;
+    background: var(--cyan-dim);
+    color: var(--cyan);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    transition: all 0.2s;
+  }
+
+  .github-btn:hover {
+    background: var(--cyan);
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.35);
+  }
+</style>

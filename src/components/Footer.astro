@@ -1,23 +1,22 @@
 ---
 ---
-
 <footer>
   <div class="container">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>Portfolio</h4>
-        <p>Découvrez mes projets et mon travail en tant que développeur.</p>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <p class="footer-name">Willem Giron</p>
+        <p class="footer-desc">Systèmes logiciels, performance, architecture.</p>
       </div>
-      <div class="footer-section">
-        <h4>Liens rapides</h4>
+      <div class="footer-col">
+        <p class="col-title">Navigation</p>
         <ul>
           <li><a href="/Portfolio/">Accueil</a></li>
           <li><a href="#projects">Projets</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
-      <div class="footer-section">
-        <h4>Me suivre</h4>
+      <div class="footer-col">
+        <p class="col-title">Liens</p>
         <ul>
           <li><a href="https://github.com/Skaro971" target="_blank">GitHub</a></li>
           <li><a href="https://www.linkedin.com/in/willem-giron-69075829a/" target="_blank">LinkedIn</a></li>
@@ -25,17 +24,33 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Skaro971. Tous droits réservés.</p>
+      <span class="footer-copy">© 2026 Skaro971</span>
+      <span class="footer-sep"></span>
+      <span class="footer-status">
+        <span class="status-dot"></span>
+        ONLINE
+      </span>
     </div>
   </div>
 </footer>
 
 <style>
   footer {
-    background-color: var(--primary);
-    border-top: 2px solid var(--accent);
-    margin-top: 4rem;
-    padding: 2rem 0 1rem;
+    background-color: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 3rem 0 1.5rem;
+    position: relative;
+  }
+
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent);
+    opacity: 0.4;
   }
 
   .container {
@@ -44,52 +59,95 @@
     padding: 0 2rem;
   }
 
-  .footer-content {
+  .footer-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
   }
 
-  .footer-section h4 {
-    color: var(--accent);
-    margin-bottom: 1rem;
-  }
-
-  .footer-section p {
-    color: var(--text-muted);
+  .footer-name {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--cyan);
     font-size: 0.95rem;
-  }
-
-  .footer-section ul {
-    list-style: none;
-  }
-
-  .footer-section ul li {
+    letter-spacing: 0.1em;
     margin-bottom: 0.5rem;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.35);
   }
 
-  .footer-section a {
+  .footer-desc {
     color: var(--text-muted);
-    transition: color 0.3s ease;
+    font-size: 0.85rem;
+    line-height: 1.6;
   }
 
-  .footer-section a:hover {
-    color: var(--accent);
+  .col-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
   }
+
+  .footer-col ul { list-style: none; }
+
+  .footer-col ul li { margin-bottom: 0.5rem; }
+
+  .footer-col a {
+    font-size: 0.875rem;
+    color: var(--text);
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--cyan); }
 
   .footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(0, 212, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 229, 255, 0.06);
+  }
+
+  .footer-copy {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
     color: var(--text-muted);
-    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+  }
+
+  .footer-sep {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0, 229, 255, 0.12), rgba(184, 0, 255, 0.08), transparent);
+  }
+
+  .footer-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--green);
+    letter-spacing: 0.15em;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--green);
+    animation: blink 2.5s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.15; }
   }
 
   @media (max-width: 768px) {
-    .footer-content {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
+    .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   }
 </style>

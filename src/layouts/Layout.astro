@@ -2,18 +2,19 @@
 interface Props {
   title: string;
 }
-
 const { title } = Astro.props;
 ---
-
 <!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Portfolio - Découvrez mes projets" />
+    <meta name="description" content="Portfolio de Willem Giron" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="theme-color" content="#000000" />
     <title>{title} | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
     <style is:global>
       * {
         margin: 0;
@@ -22,17 +23,28 @@ const { title } = Astro.props;
       }
 
       :root {
-        --primary: #0f3460;
-        --secondary: #16213e;
-        --accent: #00d4ff;
-        --text: #eaeaea;
-        --text-muted: #a8a8a8;
+        --bg:           #000000;
+        --surface:      #0a0e18;
+        --surface-2:    #0f1525;
+        --cyan:         #00e5ff;
+        --cyan-dim:     rgba(0, 229, 255, 0.15);
+        --violet:       #b800ff;
+        --violet-dim:   rgba(184, 0, 255, 0.15);
+        --red:          #ff2a4a;
+        --red-dim:      rgba(255, 42, 74, 0.12);
+        --green:        #00ff9d;
+        --text:         #c8d4e8;
+        --text-bright:  #eef2ff;
+        --text-muted:   #4e5e7a;
+        --border:       rgba(0, 229, 255, 0.1);
+        --border-hover: rgba(0, 229, 255, 0.4);
       }
 
       html {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: var(--secondary);
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg);
         color: var(--text);
+        scroll-behavior: smooth;
       }
 
       body {
@@ -40,46 +52,49 @@ const { title } = Astro.props;
         display: flex;
         flex-direction: column;
         line-height: 1.6;
+        background-image: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 3px,
+          rgba(0, 229, 255, 0.008) 3px,
+          rgba(0, 229, 255, 0.008) 4px
+        );
       }
 
-      main {
-        flex: 1;
-      }
+      main { flex: 1; }
 
       a {
-        color: var(--accent);
+        color: var(--cyan);
         text-decoration: none;
-        transition: color 0.3s ease;
+        transition: color 0.2s;
       }
 
-      a:hover {
-        color: #00b4d4;
-      }
+      a:hover { color: var(--violet); }
 
       h1, h2, h3 {
-        color: var(--text);
+        font-family: 'Share Tech Mono', monospace;
+        color: var(--text-bright);
         margin-bottom: 1rem;
+        letter-spacing: 0.03em;
       }
 
-      h1 {
-        font-size: 2.5rem;
-      }
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 1.8rem; }
+      h3 { font-size: 1.2rem; }
 
-      h2 {
-        font-size: 2rem;
-      }
-
-      h3 {
-        font-size: 1.5rem;
+      ::-webkit-scrollbar { width: 3px; }
+      ::-webkit-scrollbar-track { background: var(--bg); }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(var(--cyan), var(--violet));
       }
 
       @media (max-width: 768px) {
-        h1 {
-          font-size: 1.8rem;
-        }
-        h2 {
-          font-size: 1.5rem;
-        }
+        h1 { font-size: 1.8rem; }
+        h2 { font-size: 1.4rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; transition-duration: 0.01ms !important; }
       }
     </style>
   </head>

@@ -1,0 +1,145 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+---
+
+<ProjectLayout
+  title="Asset Engine"
+  tags={["C++17", "STL", "Binaire", "CLI", "CRC32", "Chiffrement"]}
+  github="https://github.com/Skaro971/GC_T3_P3_Asset-Engine"
+>
+
+  <div class="sections">
+
+    <div class="section">
+      <h2>Présentation</h2>
+      <p>
+        Système d'archivage de fichiers développé en C++17 pur (STL uniquement),
+        conçu pour empaqueter et gérer des ressources numériques — textures, sons,
+        configurations — dans un format binaire propriétaire <code>.asset</code>.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Fonctionnalités</h2>
+      <ul>
+        <li>Création d'archives depuis fichiers individuels ou dossiers complets</li>
+        <li>Gestion CRUD complète (Create, Read, Update, Delete)</li>
+        <li>Vérification d'intégrité via checksums CRC32</li>
+        <li>Chiffrement symétrique XOR avec clé privée configurable</li>
+        <li>Soft delete et compactage pour optimisation de l'espace disque</li>
+        <li>Archives imbriquées — une archive peut en contenir d'autres</li>
+        <li>Interface CLI complète</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Architecture</h2>
+      <p>
+        Le système repose sur une classe abstraite <code>Stream</code> qui unifie la gestion
+        des flux fichier et mémoire. La classe <code>File</code> hérite de <code>Stream</code>
+        et centralise lecture, écriture et chiffrement. La classe <code>Memory</code> permet
+        de manipuler des données sans accès disque.
+      </p>
+      <p>
+        Le format <code>.asset</code> est auto-descriptif : un magic number <code>"ASET"</code>
+        en tête d'archive identifie et configure automatiquement la lecture sans configuration externe.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Choix techniques</h2>
+      <ul>
+        <li><strong>C++17 STL uniquement</strong> — aucune dépendance externe, portabilité maximale</li>
+        <li><strong>Format binaire propriétaire</strong> — contrôle total sur la structure des données</li>
+        <li><strong>Rename en O(1)</strong> — noms à taille fixe (256 bytes), seul le header est modifié</li>
+        <li><strong>Soft delete + compact</strong> — évite la réécriture complète à chaque suppression</li>
+      </ul>
+    </div>
+
+  </div>
+
+</ProjectLayout>
+
+<style>
+  .sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .section {
+    padding: 1.8rem;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--cyan), var(--violet));
+    border-radius: 3px 0 0 3px;
+  }
+
+  .section h2 {
+    font-size: 1rem;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .section p {
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 0.93rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .section p:last-child { margin-bottom: 0; }
+
+  .section ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .section ul li {
+    color: var(--text);
+    font-size: 0.93rem;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .section ul li::before {
+    content: '▹';
+    color: var(--violet);
+    position: absolute;
+    left: 0;
+    font-size: 0.8rem;
+    top: 0.05em;
+  }
+
+  .section strong {
+    color: var(--text-bright);
+    font-weight: 500;
+  }
+
+  code {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85em;
+    color: var(--cyan);
+    background: rgba(0, 229, 255, 0.06);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+  }
+</style>
