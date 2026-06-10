@@ -75,26 +75,24 @@ const projects = [
   }
 
   .section-title {
-    text-align: center;
-    font-size: 1.6rem;
-    color: var(--text-bright);
-    margin-bottom: 0.5rem;
-    position: relative;
-    display: inline-block;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  display: block;
+  text-align: center;
+  font-size: 1.6rem;
+  color: var(--text-bright);
+  margin-bottom: 0.5rem;
+  position: relative;
+}
 
-  .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 1px;
-    background: linear-gradient(90deg, var(--cyan), var(--violet));
-  }
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cyan), var(--violet));
+}
 
   /* Projets */
   .projects-section {
