@@ -1,0 +1,141 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+---
+
+<ProjectLayout
+  title="Web Home"
+  tags={["JavaScript", "Vite", "Chrome Extension", "Gridstack.js", "Canvas API"]}
+  github="https://github.com/Skaro971/Web-Home"
+>
+
+  <div class="sections">
+
+    <div class="section">
+      <h2>Présentation</h2>
+      <p>
+        Extension Chrome/Brave qui remplace la page nouvel onglet par un dashboard
+        entièrement personnalisable. Sans compte requis, sans serveur — tout fonctionne
+        en local et hors-ligne (météo et flux RSS mis à part).
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Fonctionnalités</h2>
+      <ul>
+        <li>9 widgets : horloge, météo, barre de recherche, liens rapides, notes, Pomodoro, todo-list, grille de raccourcis, flux RSS</li>
+        <li>Grille 128 colonnes — chaque widget est librement repositionnable et redimensionnable</li>
+        <li>5 thèmes couleur : Cyan, Magenta, Green, Amber, Red</li>
+        <li>6 fonds animés : nuages de particules, circuits électroniques, lignes topographiques, scanlines CRT, réseaux de neurones</li>
+        <li>Mode Focus pour masquer les widgets non essentiels</li>
+        <li>Export / import de la configuration en JSON</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Architecture</h2>
+      <p>
+        Construit en JavaScript vanilla avec <code>Vite</code> comme bundler et
+        <code>Gridstack.js</code> pour la gestion de la grille drag-and-drop.
+        Les fonds animés exploitent le <code>Canvas API</code> directement, sans librairie
+        intermédiaire. La configuration utilisateur est persistée en <code>localStorage</code>
+        et exportable sous forme de fichier JSON.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Choix techniques</h2>
+      <ul>
+        <li><strong>Vanilla JS sans framework</strong> — légèreté maximale, pas de dépendance runtime lourde</li>
+        <li><strong>Gridstack.js</strong> — gestion de grille responsive et drag-and-drop en quelques lignes</li>
+        <li><strong>Canvas API natif</strong> — contrôle total sur le rendu des animations de fond</li>
+        <li><strong>Offline-first</strong> — aucun login, aucun serveur requis pour le fonctionnement de base</li>
+      </ul>
+    </div>
+
+  </div>
+
+</ProjectLayout>
+
+<style>
+  .sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .section {
+    padding: 1.8rem;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--cyan), var(--violet));
+    border-radius: 3px 0 0 3px;
+  }
+
+  .section h2 {
+    font-size: 1rem;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .section p {
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 0.93rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .section p:last-child { margin-bottom: 0; }
+
+  .section ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .section ul li {
+    color: var(--text);
+    font-size: 0.93rem;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .section ul li::before {
+    content: '▹';
+    color: var(--violet);
+    position: absolute;
+    left: 0;
+    font-size: 0.8rem;
+    top: 0.05em;
+  }
+
+  .section strong {
+    color: var(--text-bright);
+    font-weight: 500;
+  }
+
+  code {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85em;
+    color: var(--cyan);
+    background: rgba(0, 229, 255, 0.06);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+  }
+</style>
